@@ -67,13 +67,13 @@ def get_classification_results(
         classifier = SVM(x_train, y_train.flatten()).train()
 
         # Getting classification results for the test data
-        predictions = classifier.predict(x_test)
+        predictions = classifier.predict(x_test).flatten()
 
-        _accuracy.append(accuracy_score(y_test.flatten(), predictions.flatten()))
-        _kappa.append(cohen_kappa_score(y_test.flatten(), predictions.flatten()))
-        _precision.append(precision_score(y_test.flatten(), predictions.flatten()))
-        _recall.append(recall_score(y_test.flatten(), predictions.flatten()))
-        _f1.append(f1_score(y_test.flatten(), predictions.flatten()))
+        _accuracy.append(accuracy_score(y_test.flatten(), predictions))
+        _kappa.append(cohen_kappa_score(y_test.flatten(), predictions))
+        _precision.append(precision_score(y_test.flatten(), predictions))
+        _recall.append(recall_score(y_test.flatten(), predictions))
+        _f1.append(f1_score(y_test.flatten(), predictions))
 
     return (
         np.average(_accuracy),
