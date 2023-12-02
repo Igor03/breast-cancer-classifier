@@ -39,10 +39,29 @@ The table bellow details this division.
 - Run the ```main.py``` file in order to start the process of feature extraction and classification;
 
 ## Paper
-We also produced a paper that has a more detailed explanation of the approach adopted in this methodology.
-There we present related works, detailed results and future enhancements for this methodology.
+We also produced a [paper](static/Paper.pdf) that has a more detailed explanation of the approach adopted in this methodology.
+There we present related works, detailed results and future enhancements for this work.
 
-## TODO's
-- [ ] Create console logs for each step of the process;
-- [ ] Provide a way get resuts from each magnification on the dataset;
-- [ ] Fix mixed slashes bug
+### Results
+
+The following table shows the results achieved by the presented methodology  
+
+<p align="center"> <img src="static/results.png" alt="results">
+
+This next image is a boxplot detailing the accuracy results for all the architectures used to extract features.
+
+<p align="center"> <img src="static/boxplot.png" alt="boxplot">
+
+## Environment
+
+Those are all the languages and tools used in the project
+
+- Python 3.11
+- PyCharm
+- LaTeX
+- Overleaf
+
+
+## Important
+- If you plan on running this project, we highly recommend to use the Python version showed in the previous section. We're also providing a `requirements` file with all the required dependencies.
+- In case you're having a hard time trying to understand or run anything in this repo, feel free to contact me.

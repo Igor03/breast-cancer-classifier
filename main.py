@@ -7,7 +7,7 @@ from utils.preprocessing import Preprocessing
 from utils.io_handler import IOHandler
 from classifiers.svm import SVM
 from sklearn.metrics import cohen_kappa_score, accuracy_score, precision_score, recall_score, f1_score
-from feature_extractors.resnet152_extractor import Resnet152Extractor
+from feature_extractors.resnet101_extractor import Resnet101Extractor as Extractor
 from prettytable import PrettyTable
 
 
@@ -104,20 +104,23 @@ if __name__ == '__main__':
     # prepare_dataset()
 
     # Defining the dataset path
-    images_dataset_path = f'{settings.DEFAULT_DATA_FOLDER}/resized_breakhis/40x'
-
-    # Extracting the deep learning features from the images
-    feature_extractor = Resnet152Extractor(settings.DEFAULT_IMAGE_SIZE, verbose=True)
-    deep_learning_features = feature_extractor.batch_extract(dataset_path=images_dataset_path)
+    magnification = settings.MAGNIFICATIONS[2]
+    images_dataset_path = f'{settings.DEFAULT_DATA_FOLDER}/resized_breakhis/{magnification}X'
 
     # ---------------------------------------------------------------------------------------------
+    # Extracting the deep learning features from the images
     # Alternatively, you can save the deep learning features into a .csv file and then load it
     # to memory to avoid the need to extract the same features again.
     # ---------------------------------------------------------------------------------------------
+
+    feature_extractor = Extractor(settings.DEFAULT_IMAGE_SIZE, verbose=True)
+    deep_learning_features = feature_extractor.batch_extract(dataset_path=images_dataset_path)
+
     IOHandler.save_as_csv(
         data=deep_learning_features,
-        filepath=f'{settings.DEFAULT_DATA_FOLDER}/feature_files',
-        filename='my_features')
+        filepath=f'{settings.DEFAULT_DATA_FOLDER}/features',
+        filename=f'{Extractor.__name__}_{magnification}X')
+
     # deep_learning_features = IOHandler.read_csv(
     #     filepath=f'{settings.DEFAULT_DATA_FOLDER}/feature_files',
     #     filename='my_features')
@@ -130,7 +133,7 @@ if __name__ == '__main__':
                                                 settings.APPLY_SMOTE)
 
     table = PrettyTable()
-    table.field_names = ['Metric', f'Average result for {settings.ROUNDS_OF_TEST} interations']
+    table.field_names = ['Metric', f'Average result for {settings.ROUNDS_OF_TEST} iterations']
     table.add_row(['Accuracy', acc])
     table.add_row(['Kappa score', kappa])
     table.add_row(['Precision', precision])
